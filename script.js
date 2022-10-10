@@ -5,12 +5,14 @@ function getPlayerChoice() {
 		if (playerChoice == null) {
 			continue
 		}
-		
+
 		playerChoice = playerChoice.toLowerCase()
-		
-		if (playerChoice === 'rock' ||
+
+		if (
+			playerChoice === 'rock' ||
 			playerChoice === 'paper' ||
-			playerChoice === 'scissors') {
+			playerChoice === 'scissors'
+		) {
 				return playerChoice
 		}
 	}
@@ -26,5 +28,19 @@ function getComputerChoice() {
 		return 'paper'
 	} else {
 		return 'scissors'
+	}
+}
+
+
+function playRound(playerSelection, computerSelection) {
+	switch (true) {
+		case playerSelection === computerSelection:
+			return 'draw'
+		case (playerSelection === 'rock') && (computerSelection === 'scissors'):
+		case (playerSelection === 'paper') && (computerSelection === 'rock'):
+		case (playerSelection === 'scissors') && (computerSelection === 'paper'):
+			return 'win'
+		default:
+			return 'lose'
 	}
 }
