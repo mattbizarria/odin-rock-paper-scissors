@@ -1,6 +1,6 @@
 function getPlayerChoice() {
 	while (true) {
-		let playerChoice = prompt('Rock, paper or scissors?')
+		let playerChoice = prompt('Rock, Paper or Scissors?')
 
 		if (playerChoice == null) {
 			continue
@@ -52,30 +52,66 @@ function capitalizeString(str) {
 
 
 function playGame(rounds = 5) {
-	for (let i = 0; i < rounds; i++) {
+	console.log(`Rock Paper Scissors! Best of ${rounds}`)
+
+	let roundsPlayed = 0
+	let playerWins = 0
+	let computerWins = 0
+	let gameHasWinner = false
+
+	while (true) {
 		const playerSelection = getPlayerChoice()
 		const computerSelection = getComputerChoice()
 
+		const result = playRound(playerSelection, computerSelection)
+		roundsPlayed += 1
+
 		const capitalizedPlayerSelection = capitalizeString(playerSelection)
 		const capitalizedComputerSelection = capitalizeString(computerSelection)
-
-		const result = playRound(playerSelection, computerSelection)
-
 		let resultMessageText = ''
 		let resultMessageColor = 'inherit'
 
 		if (result === 'win') {
-			resultMessageText = `${capitalizedPlayerSelection} wins against ${capitalizedComputerSelection} :)`
+			resultMessageText = `Round ${roundsPlayed}: ${capitalizedPlayerSelection} wins against ${capitalizedComputerSelection} :)`
 			resultMessageColor = 'green'
+			playerWins += 1
 		} else if (result === 'lose') {
-			resultMessageText = `${capitalizedPlayerSelection} loses against ${capitalizedComputerSelection} :(`
+			resultMessageText = `Round ${roundsPlayed}: ${capitalizedPlayerSelection} loses against ${capitalizedComputerSelection} :(`
 			resultMessageColor = 'red'
+			computerWins += 1
 		} else {
-			resultMessageText = `${capitalizedPlayerSelection} draws with ${capitalizedComputerSelection} :|`
+			resultMessageText = `Round ${roundsPlayed}: ${capitalizedPlayerSelection} draws with ${capitalizedComputerSelection} :|`
 			resultMessageColor = 'yellow'
 		}
 
 		console.log(`%c${resultMessageText}`, `color: ${resultMessageColor}`)
+
+		// If there's no winner after the specified number of rounds,
+		// the first player to score a point wins the game
+		if (roundsPlayed >= rounds) {
+			if (playerWins !== computerWins) {
+				gameHasWinner = true
+			}
+		} else {
+			let remainingRounds = rounds - roundsPlayed
+			// Check if there's a mathematical winner
+			if (
+				(playerWins > (computerWins + remainingRounds))
+				|| (computerWins > (playerWins + remainingRounds))
+			) {
+				gameHasWinner = true
+			}
+		}
+
+		if (gameHasWinner) {
+			if (playerWins > computerWins) {
+				console.log('Victory :)')
+			} else {
+				console.log('Defeat :(')
+			}
+
+			break
+		}
 	}
 }
 
