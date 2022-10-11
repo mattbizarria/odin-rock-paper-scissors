@@ -1,56 +1,3 @@
-function getPlayerChoice() {
-	while (true) {
-		let playerChoice = prompt('Rock, Paper or Scissors?')
-
-		if (playerChoice == null) {
-			continue
-		}
-
-		playerChoice = playerChoice.toLowerCase()
-
-		if (
-			playerChoice === 'rock' ||
-			playerChoice === 'paper' ||
-			playerChoice === 'scissors'
-		) {
-				return playerChoice
-		}
-	}
-}
-
-
-function getComputerChoice() {
-	const randomChoice = Math.floor(Math.random() * 3)
-
-	if (randomChoice === 0) {
-		return 'rock'
-	} else if (randomChoice === 1) {
-		return 'paper'
-	} else {
-		return 'scissors'
-	}
-}
-
-
-function playRound(playerSelection, computerSelection) {
-	switch (true) {
-		case playerSelection === computerSelection:
-			return 'draw'
-		case (playerSelection === 'rock') && (computerSelection === 'scissors'):
-		case (playerSelection === 'paper') && (computerSelection === 'rock'):
-		case (playerSelection === 'scissors') && (computerSelection === 'paper'):
-			return 'win'
-		default:
-			return 'lose'
-	}
-}
-
-
-function capitalizeString(str) {
-	return str.charAt(0).toUpperCase() + str.slice(1)
-}
-
-
 function playGame(rounds = 5) {
 	console.log(`Rock Paper Scissors! Best of ${rounds}`)
 
@@ -114,5 +61,59 @@ function playGame(rounds = 5) {
 		}
 	}
 }
+
+
+function playRound(playerSelection, computerSelection) {
+	switch (true) {
+		case playerSelection === computerSelection:
+			return 'draw'
+		case (playerSelection === 'rock') && (computerSelection === 'scissors'):
+		case (playerSelection === 'paper') && (computerSelection === 'rock'):
+		case (playerSelection === 'scissors') && (computerSelection === 'paper'):
+			return 'win'
+		default:
+			return 'lose'
+	}
+}
+
+
+function getPlayerChoice() {
+	while (true) {
+		let playerChoice = prompt('Rock, Paper or Scissors?')
+
+		if (playerChoice == null) {
+			continue
+		}
+
+		playerChoice = playerChoice.toLowerCase()
+
+		if (
+			playerChoice === 'rock' ||
+			playerChoice === 'paper' ||
+			playerChoice === 'scissors'
+		) {
+				return playerChoice
+		}
+	}
+}
+
+
+function getComputerChoice() {
+	const randomChoice = Math.floor(Math.random() * 3)
+
+	if (randomChoice === 0) {
+		return 'rock'
+	} else if (randomChoice === 1) {
+		return 'paper'
+	} else {
+		return 'scissors'
+	}
+}
+
+
+function capitalizeString(str) {
+	return str.charAt(0).toUpperCase() + str.slice(1)
+}
+
 
 playGame()
